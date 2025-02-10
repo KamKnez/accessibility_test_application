@@ -7,90 +7,74 @@ import 'fontScaling/text_scaler.dart';
 import 'semantics/merge_semantics.dart';
 import 'semantics/semantics.dart';
 
-class MyHomePage extends StatefulWidget {
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+class MyHomePage extends StatelessWidget {
+  final VoidCallback toggleTheme; // Function to switch theme
 
-class _MyHomePageState extends State<MyHomePage> {
-  var selectedIndex = 0;
+  const MyHomePage({super.key, required this.toggleTheme});
+
+  void _navigateTo(BuildContext context, Widget page) {
+    Navigator.pop(context); // Close the drawer first
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => page),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    Widget page;
-    switch (selectedIndex) {
-      case 0:
-        page = SemanticsPage();
-        break;
-      case 1:
-        page = MergeSemanticsPage();
-        break;
-      case 2:
-        page = TextScalerPage();
-        break;
-      case 3:
-        page = AutoSizeTextPage();
-        break;
-      case 4:
-        page = ThemeDataPage();
-        break;
-      case 5:
-        page = ToolsCombinedPage();
-        break;
-      default:
-        throw UnimplementedError('No widget for $selectedIndex');
-    }
-
-    return LayoutBuilder(builder: (context, constraints) {
-      return Scaffold(
-        body: Row(
+    return Scaffold(
+      appBar: AppBar(title: Text("Flutter Drawer Navigation")),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
           children: [
-            SafeArea(
-              child: NavigationRail(
-                extended: constraints.maxWidth >= 600,
-                destinations: [
-                  NavigationRailDestination(
-                    icon: Icon(Icons.filter_1_outlined),
-                    label: Text('Semantics'),
-                  ),
-                  NavigationRailDestination(
-                    icon: Icon(Icons.filter_2_outlined),
-                    label: Text('MergeSemantics'),
-                  ),
-                  NavigationRailDestination(
-                    icon: Icon(Icons.filter_3_outlined),
-                    label: Text('TextScaler'),
-                  ),
-                  NavigationRailDestination(
-                    icon: Icon(Icons.filter_4_outlined),
-                    label: Text('AutoSizeText'),
-                  ),
-                  NavigationRailDestination(
-                    icon: Icon(Icons.filter_5_outlined),
-                    label: Text('ThemeData'),
-                  ),
-                  NavigationRailDestination(
-                    icon: Icon(Icons.filter_6_outlined),
-                    label: Text('ToolsCombined'),
-                  ),
-                ],
-                selectedIndex: selectedIndex,
-                onDestinationSelected: (value) {
-                  setState(() {
-                    selectedIndex = value;
-                  });
-                },
+            DrawerHeader(
+              decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+              child: Text(
+                "Menu",
+                style: TextStyle(color: Colors.white, fontSize: 24),
               ),
             ),
-            Expanded(
-              child: Container(
-                color: Theme.of(context).colorScheme.primaryContainer,
-                child: page,
-              ),
+            ListTile(
+              leading: Icon(Icons.filter_1_outlined),
+              title: Text('Semantics'),
+              onTap: () => _navigateTo(context, SemanticsPage()),
+            ),
+            ListTile(
+              leading: Icon(Icons.filter_2_outlined),
+              title: Text('MergeSemantics'),
+              onTap: () => _navigateTo(context, MergeSemanticsPage()),
+            ),
+            ListTile(
+              leading: Icon(Icons.filter_3_outlined),
+              title: Text('TextScaler'),
+              onTap: () => _navigateTo(context, TextScalerPage()),
+            ),
+            ListTile(
+              leading: Icon(Icons.filter_4_outlined),
+              title: Text('AutoSizeText'),
+              onTap: () => _navigateTo(context, AutoSizeTextPage()),
+            ),
+            ListTile(
+              leading: Icon(Icons.filter_5_outlined),
+              title: Text('ThemeData'),
+              onTap: () =>
+                  _navigateTo(context, ThemeDataPage(toggleTheme: toggleTheme)),
+            ),
+            ListTile(
+              leading: Icon(Icons.filter_6_outlined),
+              title: Text('ToolsCombined'),
+              onTap: () => _navigateTo(context, ToolsCombinedPage()),
             ),
           ],
         ),
-      );
-    });
+      ),
+      body: Center(
+        child: Text(
+          "Select a page from the menu",
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+      ),
+    );
   }
 }
