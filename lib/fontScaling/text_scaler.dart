@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../my_app_state.dart';
 
-class SemanticsPage extends StatelessWidget {
-  // this page is for testing the semantics widget
+class TextScalerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        'Semantics Page',
+        'Text Scaler Page',
         style: Theme.of(context).textTheme.headlineMedium,
       ),
     );
