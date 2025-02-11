@@ -32,8 +32,12 @@ class AutoSizeTextPage extends StatelessWidget {
               "Min font size 12, max 30, scales with user preferences.",
               style: TextStyle(
                   fontSize: textScaler?.scale(24)), // Scaled text size
-              minFontSize: textScaler!.scale(12), // Scaled min font size
-              maxFontSize: textScaler.scale(30), // Scaled max font size
+              minFontSize: (textScaler!.scale(12) / 2).round() *
+                  2, // Ensure multiple of stepGranularity
+              maxFontSize: (textScaler.scale(30) / 2).round() *
+                  2, // Ensure multiple of stepGranularity
+              stepGranularity:
+                  2, // Step size must match min/max font size multiples
               maxLines: 2,
               overflow: TextOverflow.ellipsis, // Truncates with "..." if needed
             ),
