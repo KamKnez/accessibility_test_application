@@ -1,3 +1,4 @@
+import 'package:accessibility_test_application/semantics/semantics_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'colorContrast/theme_data.dart';
@@ -42,27 +43,32 @@ class MyHomePage extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.filter_2_outlined),
+              title: Text('SemanticsImage'),
+              onTap: () => _navigateTo(context, SemanticsImagePage()),
+            ),
+            ListTile(
+              leading: Icon(Icons.filter_3_outlined),
               title: Text('MergeSemantics'),
               onTap: () => _navigateTo(context, MergeSemanticsPage()),
             ),
             ListTile(
-              leading: Icon(Icons.filter_3_outlined),
+              leading: Icon(Icons.filter_4_outlined),
               title: Text('TextScaler'),
               onTap: () => _navigateTo(context, TextScalerPage()),
             ),
             ListTile(
-              leading: Icon(Icons.filter_4_outlined),
+              leading: Icon(Icons.filter_5_outlined),
               title: Text('AutoSizeText'),
               onTap: () => _navigateTo(context, AutoSizeTextPage()),
             ),
             ListTile(
-              leading: Icon(Icons.filter_5_outlined),
+              leading: Icon(Icons.filter_6_outlined),
               title: Text('ThemeData'),
               onTap: () =>
                   _navigateTo(context, ThemeDataPage(toggleTheme: toggleTheme)),
             ),
             ListTile(
-              leading: Icon(Icons.filter_6_outlined),
+              leading: Icon(Icons.filter_7_outlined),
               title: Text('ToolsCombined'),
               onTap: () => _navigateTo(context, ToolsCombinedPage()),
             ),
